@@ -11,7 +11,7 @@ Refer to http://getdunne.net/wiki/doku.php?id=vanillajucenet for more details.
 ## Note on licensing
 The code in this GitHub repository is intended to be compiled in conjunction with the JUCE 5.x framework, and thus, in accordance with the JUCE terms of use, is automatically subject to the terms of the **GNU General Public License, version 3** ("GPL3"), a copy of which is provided herewith.
 
-However, I have published this source code, and that of the associated *VanillaJuce* project, with the express intent that it might be used by anyone, for any purpose, specifically including use within a closed-source commercial application. It is my sincere hope that Roli, Ltd. will at some point grant an exception to the provisions of the GPL3 in this case.
+However, I have published this source code, and that of the associated *VanillaJuce* project, with the express intent that it might be used by anyone, for any purpose, specifically including use within a closed-source commercial application. It is my sincere hope that Roli, Ltd. will at some point grant an exception to the provisions of the GPL3 in this case. Unless and until that occurs, this code remains subject to the GPL3.
 
 Shane Dunne,
 August, 2018
