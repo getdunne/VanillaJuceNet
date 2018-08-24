@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="Zrz1lX" name="VanillaJuceNet" projectType="consoleapp" jucerVersion="5.3.2">
+  <MAINGROUP id="GKJ39Q" name="VanillaJuceNet">
+    <GROUP id="{EC0839D7-5950-0CFA-4CBC-20E15504C1CC}" name="VanillaJuce DSP">
+      <FILE id="SB1nYE" name="Synth.cpp" compile="1" resource="0" file="../VanillaJuce/Source/Synth.cpp"/>
+      <FILE id="zuBfQy" name="Synth.h" compile="0" resource="0" file="../VanillaJuce/Source/Synth.h"/>
+      <FILE id="V6FJZS" name="SynthEnvelopeGenerator.cpp" compile="1" resource="0"
+            file="../VanillaJuce/Source/SynthEnvelopeGenerator.cpp"/>
+      <FILE id="XDDwpi" name="SynthEnvelopeGenerator.h" compile="0" resource="0"
+            file="../VanillaJuce/Source/SynthEnvelopeGenerator.h"/>
+      <FILE id="heYGuu" name="SynthOscillator.cpp" compile="1" resource="0"
+            file="../VanillaJuce/Source/SynthOscillator.cpp"/>
+      <FILE id="ly7O5t" name="SynthOscillator.h" compile="0" resource="0"
+            file="../VanillaJuce/Source/SynthOscillator.h"/>
+      <FILE id="LUp4gT" name="SynthParameters.cpp" compile="1" resource="0"
+            file="../VanillaJuce/Source/SynthParameters.cpp"/>
+      <FILE id="bwvQeq" name="SynthParameters.h" compile="0" resource="0"
+            file="../VanillaJuce/Source/SynthParameters.h"/>
+      <FILE id="ULcGSo" name="SynthSound.cpp" compile="1" resource="0" file="../VanillaJuce/Source/SynthSound.cpp"/>
+      <FILE id="WPExsE" name="SynthSound.h" compile="0" resource="0" file="../VanillaJuce/Source/SynthSound.h"/>
+      <FILE id="RsQ41j" name="SynthVoice.cpp" compile="1" resource="0" file="../VanillaJuce/Source/SynthVoice.cpp"/>
+      <FILE id="eBF1ei" name="SynthVoice.h" compile="0" resource="0" file="../VanillaJuce/Source/SynthVoice.h"/>
+      <FILE id="t90GTe" name="SynthWaveform.cpp" compile="1" resource="0"
+            file="../VanillaJuce/Source/SynthWaveform.cpp"/>
+      <FILE id="UNkJHh" name="SynthWaveform.h" compile="0" resource="0" file="../VanillaJuce/Source/SynthWaveform.h"/>
+    </GROUP>
+    <GROUP id="{149E9735-F4F2-27B7-E1FB-53B5E9E9F81F}" name="Source">
+      <FILE id="ZaJo3o" name="DSPServer.cpp" compile="1" resource="0" file="Source/DSPServer.cpp"/>
+      <FILE id="zOFKRY" name="DSPServer.h" compile="0" resource="0" file="Source/DSPServer.h"/>
+      <FILE id="AAj6Dz" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX" extraDefs="DSP_NET_ONLY">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" headerPath="../../../VanillaJuce/Source"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="../../../VanillaJuce/Source"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <VS2017 targetFolder="Builds/VisualStudio2017" extraDefs="DSP_NET_ONLY">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" headerPath="../../../VanillaJuce/Source"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="../../../VanillaJuce/Source"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_events" path="../../juce"/>
+        <MODULEPATH id="juce_core" path="../../juce"/>
+        <MODULEPATH id="juce_audio_devices" path="../../juce"/>
+        <MODULEPATH id="juce_audio_basics" path="../../juce"/>
+      </MODULEPATHS>
+    </VS2017>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraDefs="DSP_NET_ONLY">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" headerPath="../../../VanillaJuce/Source"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="../../../VanillaJuce/Source"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_events" path="../../juce"/>
+        <MODULEPATH id="juce_core" path="../../juce"/>
+        <MODULEPATH id="juce_audio_devices" path="../../juce"/>
+        <MODULEPATH id="juce_audio_basics" path="../../juce"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <LIVE_SETTINGS>
+    <OSX/>
+    <WINDOWS/>
+  </LIVE_SETTINGS>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>
