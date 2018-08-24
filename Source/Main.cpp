@@ -16,7 +16,7 @@ int main (int argc, char* argv[])
 {
     signal(SIGINT, &SigBreak_Handler);
     signal(SIGTERM, &SigBreak_Handler);
-    signal(SIGBREAK, &SigBreak_Handler);
+    //signal(SIGBREAK, &SigBreak_Handler);
 
     hostSocket.reset(new StreamingSocket());
     while (!breakForced && hostSocket->createListener(DEFAULT_PORT))
