@@ -1,47 +1,42 @@
 #include "DSPServer.h"
-#include "Synth.h"
-#include "SynthVoice.h"
 
-Synth synth;
-SynthParameters synthParams;
-SynthSound synthSound(synth);
-SynthVoice synthVoices[16];
-bool synthSetup = false;
-
-DSP_Server::DSP_Server(StreamingSocket* socket)
-: clientSocket(socket)
-, bCancel(false)
-, bRunning(true)
-, bEnabled(true)
+DSP_Server::DSP_Server(StreamingSocket* socket, const String &threadName)
+: Thread(threadName)
+, clientSocket(socket)
 , nParamMsgs(0)
 {
-    if (!synthSetup)
-    {
-        synthParams.setDefaultValues();
-        synthSound.pParams = &synthParams;
-        synth.addSound(&synthSound);
+    synthParams.setDefaultValues();
+    pSynthSound = new SynthSound(synth);
+    pSynthSound->pParams = &synthParams;
+    synth.addSound(pSynthSound);
 
-        for (int i = 0; i < 16; ++i)
-            synth.addVoice(synthVoices + i);
+    for (int i = 0; i < 16; ++i)
+        synth.addVoice(new SynthVoice());
 
-        synth.setCurrentPlaybackSampleRate(44100);
-        synthSetup = true;
-    }
+    synth.setCurrentPlaybackSampleRate(44100);
 }
 
 DSP_Server::~DSP_Server()
 {
+    delete clientSocket;
+}
+
+void DSP_Server::run()
+{
+    bool runOK = ClientLoop();
+    clientSocket->close();
+    DBG("Closing client: " + getThreadName());
 }
 
 bool DSP_Server::ClientLoop()
 {
     // Receive until the peer shuts down the connection
-    while (!bCancel)
+    while (!currentThreadShouldExit())
     {
         // Get header
         SendDataHeader hdr;
         int byteCount = clientSocket->read((char*)&hdr, sizeof(SendDataHeader), true);
-        if (byteCount < 0) goto errorShutdown;
+        if (byteCount < 0) return false;
         if (byteCount == 0)
         {
             DBG("Connection closing...");
@@ -56,7 +51,7 @@ bool DSP_Server::ClientLoop()
         {
             // get midi data
             byteCount = ReceiveAndProcessMIDI(hdr.midiCount);
-            if (byteCount < 0) goto errorShutdown;
+            if (byteCount < 0) return false;
             if (byteCount == 0)
             {
                 DBG("Connection closing...");
@@ -68,7 +63,7 @@ bool DSP_Server::ClientLoop()
         {
             // midi data follow header
             byteCount = ReceiveAndProcessParamChanges(hdr.paramCount);
-            if (byteCount < 0) goto errorShutdown;
+            if (byteCount < 0) return false;
             if (byteCount == 0)
             {
                 DBG("Connection closing...");
@@ -80,7 +75,7 @@ bool DSP_Server::ClientLoop()
         {
             // filter input sample data follow header
             byteCount = ReceiveSamples(hdr.frameCount);
-            if (byteCount < 0) goto errorShutdown;
+            if (byteCount < 0) return false;
             if (byteCount == 0)
             {
                 DBG("Connection closing...");
@@ -96,14 +91,9 @@ bool DSP_Server::ClientLoop()
 
         // Process the data and send back result
         ProcessSamples(hdr.frameCount, hdr.timeStamp);
-        if (!SendSamples(hdr.frameCount)) goto errorShutdown;
+        if (!SendSamples(hdr.frameCount)) return false;
     }
-    bRunning = false;
     return true;
-
-errorShutdown:
-    bRunning = false;
-    return false;
 }
 
 int DSP_Server::ReceiveAndProcessMIDI(int nMessageCount)
@@ -225,7 +215,7 @@ void DSP_Server::render(float** buffers, int nFrames)
     {
         SynthParameters::ParameterIndex pi = (SynthParameters::ParameterIndex)(pPm->paramIndex);
         if (synthParams.updateParam(pi, pPm->paramValue))
-            synthSound.parameterChanged();
+            pSynthSound->parameterChanged();
     }
 
     AudioBuffer<float> audioBuffer(outBuffers, 2, nFrames);

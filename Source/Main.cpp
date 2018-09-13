@@ -1,15 +1,22 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "DSPServer.h"
 #include <signal.h>
+#include <list>
 
 std::unique_ptr<StreamingSocket> hostSocket;
-DSP_Server* server = 0;
+std::list<DSP_Server*> servers;
 bool breakForced = false;
 
 void SigBreak_Handler(int n_signal)
 {
     breakForced = true;
-    if (server) server->ForceShutdown();
+    while (!servers.empty())
+    {
+        DSP_Server* server = servers.front();
+        server->stopThread(100);
+        delete server;
+        servers.pop_front();
+    }
 }
 
 int main (int argc, char* argv[])
@@ -27,16 +34,10 @@ int main (int argc, char* argv[])
             DBG("Forced shutdown");
             break;
         }
-        DBG("Client connected!");
-        server = new DSP_Server(clientSocket);
-        if (!(server->ClientLoop()))
-        {
-            DBG("ClientLoop returned false");
-            //return 1;
-        }
-        clientSocket->close();
-        delete server;
-        server = 0;
+        DBG("Client connected: " + String((int64)clientSocket));
+        DSP_Server* server = new DSP_Server(clientSocket, String((int64)clientSocket));
+        server->startThread();
+        servers.push_back(server);
     }
 
     if (breakForced) return 0;

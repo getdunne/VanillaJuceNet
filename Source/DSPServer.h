@@ -2,6 +2,8 @@
 #include <stdint.h>
 #define JUCE_DONT_DECLARE_PROJECTINFO 1
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "Synth.h"
+#include "SynthVoice.h"
 
 #define MAXFRAMES 2048
 #define CHANNELS 2
@@ -48,21 +50,17 @@ typedef struct
 
 #pragma pack(pop)
 
-class DSP_Server
+class DSP_Server : public Thread
 {
 protected:
     StreamingSocket* clientSocket;
-    bool volatile bCancel;                      // cancel (stop) flag
-    bool volatile bRunning;                     // true while running
     bool bEnabled;                              // if false, thread should essentially do nothing
 
 public:
-    DSP_Server(StreamingSocket* socket);
+    DSP_Server(StreamingSocket* socket, const String &threadName);
     ~DSP_Server();
-    void Enable() { bEnabled = true; }
-    void Disable() { bEnabled = false; }
+    void run() override;
     bool ClientLoop();
-    void ForceShutdown() { bCancel = true; while (bRunning) {} }
 
 protected:
     char recvbuf[BUFLEN], sendbuf[BUFLEN];
@@ -72,6 +70,10 @@ protected:
     //int nMidiMsgs;
     ParamMessageStruct paramData[500], *pPm;
     int nParamMsgs;
+
+    SynthParameters synthParams;
+    Synth synth;
+    SynthSound* pSynthSound;
 
     int ReceiveAndProcessMIDI(int nMessageCount);  // return bytecount, or 0 if client disconnected, <0 for error
     int ReceiveAndProcessParamChanges(int nMessageCount);  // return bytecount, or 0 on disconnect, <0 on errr
