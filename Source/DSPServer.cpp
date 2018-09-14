@@ -3,6 +3,7 @@
 DSP_Server::DSP_Server(StreamingSocket* socket, const String &threadName)
 : Thread(threadName)
 , clientSocket(socket)
+, bEnabled(true)
 , nParamMsgs(0)
 {
     synthParams.setDefaultValues();
