@@ -8,10 +8,31 @@ This works together with my [VanillaJuce](https://github.com/getdunne/VanillaJuc
 
 Refer to http://getdunne.net/wiki/doku.php?id=vanillajucenet for more details.
 
-## Note on licensing
-The code in this GitHub repository is intended to be compiled in conjunction with the JUCE 5.x framework, and thus, in accordance with the JUCE terms of use, is automatically subject to the terms of the **GNU General Public License, version 3** ("GPL3"), a copy of which is provided herewith.
+## Code licensing terms
+This code is licensed under the terms of the MIT License (below, and also in the file *LICENSE* in this repo). To compile it, you will need a copy of the [JUCE framework](https://juce.com), and the resulting *combined work* will be subject to JUCE's own licensing terms.
 
-However, I have published this source code, and that of the associated *VanillaJuce* project, with the express intent that it might be used by anyone, for any purpose, specifically including use within a closed-source commercial application. It is my sincere hope that Roli, Ltd. will at some point grant an exception to the provisions of the GPL3 in this case. Unless and until that occurs, **this code remains subject to the GPL3**.
+It is my INTENT, as the author of this code, that everyone should have the right to use all or part of it in any JUCE-based program, and in the event that any such program should become subject to the GPL3 license (in accordance with the JUCE license terms), that this right should not be abridged. However, I doubt that this statement of intent would carry any weight under the law, so at this point I can only say: USE AT YOUR OWN RISK.
 
-Shane Dunne,
-August, 2018
+Shane Dunne, October 2018
+
+> The MIT License (MIT)
+> 
+> Copyright (c) 2017-2018 Shane D. Dunne
+> 
+> Permission is hereby granted, free of charge, to any person obtaining a copy
+> of this software and associated documentation files (the "Software"), to deal
+> in the Software without restriction, including without limitation the rights
+> to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+> copies of the Software, and to permit persons to whom the Software is
+> furnished to do so, subject to the following conditions:
+> 
+> The above copyright notice and this permission notice shall be included in
+> all copies or substantial portions of the Software.
+> 
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+> THE SOFTWARE.
