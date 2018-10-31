@@ -31,7 +31,7 @@ DSP_Server::DSP_Server(StreamingSocket* socket, const String &threadName)
     pSynthSound->pParams = &synthParams;
     synth.addSound(pSynthSound);
 
-    for (int i = 0; i < 16; ++i)
+    for (int i = 0; i < 64; ++i)
         synth.addVoice(new SynthVoice());
 
     synth.setCurrentPlaybackSampleRate(44100);
